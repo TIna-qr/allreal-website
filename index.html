@@ -1,1 +1,214 @@
-<h1>Hello AllReal</h1>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AllReal 服務入口</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif;
+      background: #f7f7f7;
+      color: #111;
+    }
+
+    .page {
+      max-width: 430px;
+      min-height: 100vh;
+      margin: 0 auto;
+      background: #fff;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
+    }
+
+    header {
+      height: 86px;
+      background: #050505;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 26px;
+      border-bottom: 2px solid #d9a441;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: white;
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .logo-mark {
+      color: #d9a441;
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -5px;
+    }
+
+    .menu {
+      width: 34px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .menu span {
+      height: 4px;
+      background: white;
+      border-radius: 999px;
+    }
+
+    .hero {
+      height: 210px;
+      position: relative;
+      background:
+        linear-gradient(rgba(2, 6, 12, 0.72), rgba(2, 6, 12, 0.72)),
+        url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1200&q=80");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      line-height: 1.45;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .gold-line {
+      width: 72px;
+      height: 4px;
+      background: #d9a441;
+      border-radius: 999px;
+      margin: 20px auto 0;
+      position: relative;
+    }
+
+    .gold-line::after {
+      content: "";
+      width: 7px;
+      height: 7px;
+      background: #d9a441;
+      border-radius: 50%;
+      position: absolute;
+      right: -16px;
+      top: -1.5px;
+    }
+
+    .services {
+      padding: 50px 26px 42px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      background: linear-gradient(#fff, #fafafa);
+    }
+
+    .card {
+      height: 170px;
+      border: none;
+      border-radius: 18px;
+      background: white;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.13);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:active {
+      transform: scale(0.97);
+    }
+
+    .icon {
+      font-size: 52px;
+      color: #d9a441;
+      margin-bottom: 24px;
+      line-height: 1;
+    }
+
+    .card p {
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    footer {
+      background: #050505;
+      color: #999;
+      text-align: center;
+      padding: 28px 16px;
+      font-size: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .page {
+        max-width: 480px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">
+        <div class="logo-mark">AR</div>
+        <div>AllReal</div>
+      </div>
+
+      <div class="menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <h1>主人您好！<br />請問需要什麼服務？</h1>
+        <div class="gold-line"></div>
+      </div>
+    </section>
+
+    <section class="services">
+      <button class="card" onclick="location.href='#products'">
+        <div class="icon">▱</div>
+        <p>產品訊息</p>
+      </button>
+
+      <button class="card" onclick="location.href='#manual'">
+        <div class="icon">▰</div>
+        <p>操作手冊</p>
+      </button>
+
+      <button class="card" onclick="location.href='#cooperation'">
+        <div class="icon">🤝</div>
+        <p>技術合作</p>
+      </button>
+
+      <button class="card" onclick="location.href='#service'">
+        <div class="icon">🎧</div>
+        <p>客戶服務</p>
+      </button>
+    </section>
+
+    <footer>
+      © 2025 AllReal. All rights reserved.
+    </footer>
+  </div>
+</body>
+</html>
