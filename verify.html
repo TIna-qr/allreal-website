@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>驗證碼驗證｜AllReal</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      background:#f5f5f5;
+      font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;
+      color:#111;
+    }
+
+    .page{
+      max-width:430px;
+      margin:0 auto;
+      min-height:100vh;
+      background:white;
+      box-shadow:0 0 35px rgba(0,0,0,.15);
+    }
+
+    header{
+      height:86px;
+      background:#050505;
+      border-bottom:2px solid #d9a441;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 26px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      color:white;
+      font-size:28px;
+      font-weight:800;
+    }
+
+    .logo-mark{
+      color:#d9a441;
+      font-size:38px;
+      font-weight:900;
+      letter-spacing:-5px;
+    }
+
+    .menu{
+      width:34px;
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+    }
+
+    .menu span{
+      height:4px;
+      background:white;
+      border-radius:999px;
+    }
+
+    .hero{
+      height:260px;
+      background:
+      linear-gradient(rgba(2,6,12,.75),rgba(2,6,12,.75)),
+      url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1200&q=80");
+
+      background-size:cover;
+      background-position:center;
+      color:white;
+      position:relative;
+      padding:34px 28px;
+    }
+
+    .back{
+      color:white;
+      text-decoration:none;
+      font-size:20px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .hero-center{
+      text-align:center;
+      margin-top:40px;
+    }
+
+    .hero h1{
+      font-size:54px;
+      font-weight:900;
+      letter-spacing:3px;
+    }
+
+    .gold-line{
+      width:80px;
+      height:4px;
+      background:#d9a441;
+      border-radius:999px;
+      margin:18px auto 28px;
+      position:relative;
+    }
+
+    .gold-line::after{
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:#d9a441;
+      position:absolute;
+      right:-18px;
+      top:-2px;
+    }
+
+    .hero p{
+      font-size:18px;
+      color:#ddd;
+      line-height:1.8;
+    }
+
+    .content{
+      padding:55px 34px;
+      text-align:center;
+    }
+
+    .lock-circle{
+      width:130px;
+      height:130px;
+      border-radius:50%;
+      border:2px solid rgba(217,164,65,.15);
+      margin:0 auto 35px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:58px;
+      color:#d9a441;
+    }
+
+    .content h2{
+      font-size:36px;
+      margin-bottom:18px;
+      font-weight:900;
+    }
+
+    .desc{
+      color:#999;
+      font-size:17px;
+      line-height:1.8;
+      margin-bottom:42px;
+    }
+
+    .input-box{
+      width:100%;
+      height:82px;
+      border:2px solid #d9a441;
+      border-radius:18px;
+      padding:0 24px;
+      font-size:34px;
+      margin-bottom:24px;
+      outline:none;
+    }
+
+    .submit-btn{
+      width:100%;
+      height:82px;
+      border:none;
+      border-radius:18px;
+      background:linear-gradient(90deg,#d9a441,#e2b75f);
+      color:white;
+      font-size:28px;
+      font-weight:800;
+      cursor:pointer;
+      margin-bottom:40px;
+    }
+
+    .or{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      color:#aaa;
+      margin-bottom:36px;
+    }
+
+    .or::before,
+    .or::after{
+      content:"";
+      flex:1;
+      height:1px;
+      background:#ddd;
+    }
+
+    .hint{
+      color:#888;
+      font-size:17px;
+      line-height:1.9;
+    }
+
+    footer{
+      background:#050505;
+      color:#999;
+      text-align:center;
+      padding:28px 16px;
+      font-size:16px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="page">
+
+  <header>
+    <div class="logo">
+      <div class="logo-mark">AR</div>
+      <div>AllReal</div>
+    </div>
+
+    <div class="menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <section class="hero">
+
+    <a href="index.html" class="back">
+      ← 返回服務項目
+    </a>
+
+    <div class="hero-center">
+      <h1>輸入驗證碼</h1>
+
+      <div class="gold-line"></div>
+
+      <p>
+        為保障您的權益，請輸入驗證碼以繼續
+      </p>
+    </div>
+
+  </section>
+
+  <section class="content">
+
+    <div class="lock-circle">
+      🔒
+    </div>
+
+    <h2>請輸入驗證碼</h2>
+
+    <div class="desc">
+      驗證碼已印製於設備貼紙上<br>
+      或由負責人提供
+    </div>
+
+    <input
+      type="text"
+      class="input-box"
+      placeholder="請輸入驗證碼"
+    >
+
+    <button class="submit-btn">
+      確認送出
+    </button>
+
+    <div class="or">
+      或
+    </div>
+
+    <div class="hint">
+      請輸入正確驗證碼，<br>
+      或請洽實驗室負責人
+    </div>
+
+  </section>
+
+  <footer>
+    © 2025 AllReal. All rights reserved.
+  </footer>
+
+</div>
+
+</body>
+</html>
