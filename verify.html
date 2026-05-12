@@ -6,11 +6,7 @@
   <title>驗證碼驗證｜AllReal</title>
 
   <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
+    *{ margin:0; padding:0; box-sizing:border-box; }
 
     body{
       background:#f5f5f5;
@@ -70,7 +66,6 @@
       background:
       linear-gradient(rgba(2,6,12,.75),rgba(2,6,12,.75)),
       url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1200&q=80");
-
       background-size:cover;
       background-position:center;
       color:white;
@@ -82,9 +77,6 @@
       color:white;
       text-decoration:none;
       font-size:20px;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
     }
 
     .hero-center{
@@ -139,7 +131,6 @@
       align-items:center;
       justify-content:center;
       font-size:58px;
-      color:#d9a441;
     }
 
     .content h2{
@@ -161,9 +152,11 @@
       border:2px solid #d9a441;
       border-radius:18px;
       padding:0 24px;
-      font-size:34px;
-      margin-bottom:24px;
+      font-size:30px;
+      margin-bottom:20px;
       outline:none;
+      text-align:center;
+      text-transform:uppercase;
     }
 
     .submit-btn{
@@ -176,23 +169,42 @@
       font-size:28px;
       font-weight:800;
       cursor:pointer;
-      margin-bottom:40px;
+      margin-bottom:30px;
     }
 
-    .or{
-      display:flex;
-      align-items:center;
-      gap:18px;
-      color:#aaa;
-      margin-bottom:36px;
+    .message{
+      min-height:32px;
+      font-size:18px;
+      font-weight:700;
+      margin-bottom:28px;
     }
 
-    .or::before,
-    .or::after{
-      content:"";
-      flex:1;
-      height:1px;
-      background:#ddd;
+    .error{
+      color:#c0392b;
+    }
+
+    .success{
+      color:#2e7d32;
+    }
+
+    .wechat-box{
+      display:none;
+      margin-top:20px;
+      padding:24px;
+      border-radius:18px;
+      background:#fafafa;
+      box-shadow:0 8px 24px rgba(0,0,0,.08);
+    }
+
+    .wechat-box h3{
+      font-size:24px;
+      margin-bottom:16px;
+    }
+
+    .wechat-box img{
+      width:200px;
+      max-width:100%;
+      border-radius:12px;
     }
 
     .hint{
@@ -229,28 +241,18 @@
   </header>
 
   <section class="hero">
-
-    <a href="index.html" class="back">
-      ← 返回服務項目
-    </a>
+    <a href="index.html" class="back">← 返回服務項目</a>
 
     <div class="hero-center">
       <h1>輸入驗證碼</h1>
-
       <div class="gold-line"></div>
-
-      <p>
-        為保障您的權益，請輸入驗證碼以繼續
-      </p>
+      <p>為保障您的權益，請輸入驗證碼以繼續</p>
     </div>
-
   </section>
 
   <section class="content">
 
-    <div class="lock-circle">
-      🔒
-    </div>
+    <div class="lock-circle">🔒</div>
 
     <h2>請輸入驗證碼</h2>
 
@@ -262,20 +264,27 @@
     <input
       type="text"
       class="input-box"
+      id="verifyCode"
       placeholder="請輸入驗證碼"
     >
 
-    <button class="submit-btn">
+    <button class="submit-btn" onclick="checkVerifyCode()">
       確認送出
     </button>
 
-    <div class="or">
-      或
-    </div>
+    <div id="message" class="message"></div>
 
     <div class="hint">
       請輸入正確驗證碼，<br>
       或請洽實驗室負責人
+    </div>
+
+    <div id="wechatBox" class="wechat-box">
+      <h3>驗證成功</h3>
+      <p style="margin-bottom:16px;">請掃描下方 QR Code 進入微信服務號</p>
+
+      <!-- 之後把這張圖換成你的微信服務號 QR Code -->
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=WeChat-AllReal-Service" alt="WeChat QR Code">
     </div>
 
   </section>
@@ -285,6 +294,55 @@
   </footer>
 
 </div>
+
+<script>
+  async function checkVerifyCode() {
+    const verifyCode = document.getElementById("verifyCode").value.trim().toUpperCase();
+    const message = document.getElementById("message");
+    const wechatBox = document.getElementById("wechatBox");
+
+    // 目前先固定測試 AMO-0001
+    const deviceId = "AMO-0001";
+
+    message.textContent = "";
+    message.className = "message";
+    wechatBox.style.display = "none";
+
+    if (!verifyCode) {
+      message.textContent = "請先輸入驗證碼";
+      message.classList.add("error");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://127.0.0.1:8001/verify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          device_id: deviceId,
+          verify_code: verifyCode
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        message.textContent = "驗證成功！";
+        message.classList.add("success");
+        wechatBox.style.display = "block";
+      } else {
+        message.textContent = "請輸入正確驗證碼，或請洽實驗室負責人";
+        message.classList.add("error");
+      }
+
+    } catch (error) {
+      message.textContent = "系統連線失敗，請稍後再試";
+      message.classList.add("error");
+    }
+  }
+</script>
 
 </body>
 </html>
