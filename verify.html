@@ -302,7 +302,14 @@
     const wechatBox = document.getElementById("wechatBox");
 
     // 目前先固定測試 AMO-0001
-    const deviceId = "AMO-0001";
+    const urlParams = new URLSearchParams(window.location.search);
+const deviceId = urlParams.get("device_id");
+
+if (!deviceId) {
+  message.textContent = "無法辨識設備編號，請重新掃描設備 QR Code";
+  message.classList.add("error");
+  return;
+}
 
     message.textContent = "";
     message.className = "message";
@@ -315,7 +322,7 @@
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8001/verify", {
+      const response = await fetch("https://amo-qrcode-system.onrender.com/verify", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
