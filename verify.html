@@ -6,6 +6,7 @@
   <title>驗證碼驗證｜AllReal</title>
 
   <style>
+
     *{
       margin:0;
       padding:0;
@@ -67,14 +68,18 @@
 
     .hero{
       height:260px;
+
       background:
       linear-gradient(rgba(2,6,12,.75),rgba(2,6,12,.75)),
       url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1200&q=80");
 
       background-size:cover;
       background-position:center;
+
       color:white;
+
       position:relative;
+
       padding:34px 28px;
     }
 
@@ -188,93 +193,6 @@
       color:#c0392b;
     }
 
-    .success{
-      color:#2e7d32;
-    }
-
-    .wechat-box{
-      display:none;
-      margin-top:20px;
-      padding:24px;
-      border-radius:18px;
-      background:#fafafa;
-      box-shadow:0 8px 24px rgba(0,0,0,.08);
-    }
-
-    .success-icon{
-      width:80px;
-      height:80px;
-      border-radius:50%;
-      border:2px solid rgba(217,164,65,.35);
-      color:#d9a441;
-      font-size:42px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      margin:0 auto 24px;
-    }
-
-    .success-desc{
-      color:#888;
-      font-size:17px;
-      line-height:1.8;
-      margin-bottom:24px;
-    }
-
-    .wechat-card{
-      background:#08c160;
-      border-radius:14px;
-      padding:24px 22px;
-      color:white;
-      margin:24px 0 34px;
-    }
-
-    .wechat-title{
-      font-size:28px;
-      font-weight:800;
-      margin-bottom:18px;
-    }
-
-    .wechat-card img{
-      width:210px;
-      background:white;
-      padding:10px;
-      border-radius:10px;
-      margin-bottom:18px;
-    }
-
-    .wechat-name{
-      background:white;
-      color:#333;
-      border-radius:8px;
-      padding:10px;
-      font-size:16px;
-    }
-
-    .warm-title{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      color:#333;
-      font-size:20px;
-      font-weight:800;
-      margin:24px 0 14px;
-    }
-
-    .warm-title::before,
-    .warm-title::after{
-      content:"";
-      flex:1;
-      height:1px;
-      background:#ddd;
-    }
-
-    .warm-text{
-      color:#999;
-      line-height:1.8;
-      font-size:16px;
-    }
-
     .hint{
       color:#888;
       font-size:17px;
@@ -297,6 +215,7 @@
 <div class="page">
 
   <header>
+
     <div class="logo">
       <div class="logo-mark">AR</div>
       <div>AllReal</div>
@@ -307,6 +226,7 @@
       <span></span>
       <span></span>
     </div>
+
   </header>
 
   <section class="hero">
@@ -316,6 +236,7 @@
     </a>
 
     <div class="hero-center">
+
       <h1>輸入驗證碼</h1>
 
       <div class="gold-line"></div>
@@ -323,6 +244,7 @@
       <p>
         為保障您的權益，請輸入驗證碼以繼續
       </p>
+
     </div>
 
   </section>
@@ -356,44 +278,6 @@
       或請洽實驗室負責人
     </div>
 
-    <div id="wechatBox" class="wechat-box">
-
-      <div class="success-icon">✓</div>
-
-      <h3>驗證碼正確</h3>
-
-      <p class="success-desc">
-        請掃描下方二維碼，關注我們的微信服務號
-      </p>
-
-      <div class="wechat-card">
-
-        <div class="wechat-title">
-          微信搜一搜
-        </div>
-
-        <img
-          src="images/wechat-qrcode.png"
-          alt="微信服務號 QR Code"
-        >
-
-        <div class="wechat-name">
-          上海日測光電子科技有限公司
-        </div>
-
-      </div>
-
-      <div class="warm-title">
-        溫馨提示
-      </div>
-
-      <p class="warm-text">
-        如無法掃描，請保存圖片後使用微信掃描<br>
-        或在微信中搜索服務號名稱
-      </p>
-
-    </div>
-
   </section>
 
   <footer>
@@ -414,8 +298,6 @@
 
     const message = document.getElementById("message");
 
-    const wechatBox = document.getElementById("wechatBox");
-
     const urlParams = new URLSearchParams(window.location.search);
 
     const deviceId = urlParams.get("device_id");
@@ -433,8 +315,6 @@
     message.textContent = "";
 
     message.className = "message";
-
-    wechatBox.style.display = "none";
 
     if (!verifyCode) {
 
@@ -467,11 +347,8 @@
 
       if (result.success) {
 
-        message.textContent = "驗證成功！";
-
-        message.classList.add("success");
-
-        wechatBox.style.display = "block";
+        window.location.href =
+          "success.html?device_id=" + deviceId;
 
       } else {
 
