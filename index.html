@@ -185,22 +185,22 @@
     </section>
 
     <section class="services">
-      <button class="card" onclick="location.href='verify.html'">
+      <button class="card" onclick="goVerify('products')">
         <div class="icon">▱</div>
         <p>產品訊息</p>
       </button>
 
-      <button class="card" onclick="location.href='verify.html'">
+      <button class="card" onclick="goVerify('manual')">
         <div class="icon">▰</div>
         <p>操作手冊</p>
       </button>
 
-      <button class="card" onclick="location.href='verify.html'">
+      <button class="card" onclick="goVerify('cooperation')">
         <div class="icon">🤝</div>
         <p>技術合作</p>
       </button>
 
-      <button class="card" onclick="location.href='verify.html'">
+      <button class="card" onclick="goVerify('customer-service')">
         <div class="icon">🎧</div>
         <p>客戶服務</p>
       </button>
@@ -210,5 +210,21 @@
       © 2025 AllReal. All rights reserved.
     </footer>
   </div>
+
+  <script>
+    function goVerify(service) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const deviceId = urlParams.get("device_id");
+
+      if (!deviceId) {
+        alert("無法辨識設備編號，請重新掃描設備 QR Code");
+        return;
+      }
+
+      window.location.href =
+        "verify.html?device_id=" + encodeURIComponent(deviceId) +
+        "&service=" + encodeURIComponent(service);
+    }
+  </script>
 </body>
 </html>

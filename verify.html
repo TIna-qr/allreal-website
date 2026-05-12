@@ -6,7 +6,6 @@
   <title>驗證碼驗證｜AllReal</title>
 
   <style>
-
     *{
       margin:0;
       padding:0;
@@ -68,18 +67,13 @@
 
     .hero{
       height:260px;
-
       background:
       linear-gradient(rgba(2,6,12,.75),rgba(2,6,12,.75)),
       url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1200&q=80");
-
       background-size:cover;
       background-position:center;
-
       color:white;
-
       position:relative;
-
       padding:34px 28px;
     }
 
@@ -156,6 +150,14 @@
       margin-bottom:42px;
     }
 
+    .service-label{
+      color:#d9a441;
+      font-size:17px;
+      font-weight:800;
+      margin-bottom:22px;
+      display:none;
+    }
+
     .input-box{
       width:100%;
       height:82px;
@@ -206,7 +208,6 @@
       padding:28px 16px;
       font-size:16px;
     }
-
   </style>
 </head>
 
@@ -215,7 +216,6 @@
 <div class="page">
 
   <header>
-
     <div class="logo">
       <div class="logo-mark">AR</div>
       <div>AllReal</div>
@@ -226,27 +226,20 @@
       <span></span>
       <span></span>
     </div>
-
   </header>
 
   <section class="hero">
-
     <a href="index.html" class="back">
       ← 返回服務項目
     </a>
 
     <div class="hero-center">
-
       <h1>輸入驗證碼</h1>
-
       <div class="gold-line"></div>
-
       <p>
         為保障您的權益，請輸入驗證碼以繼續
       </p>
-
     </div>
-
   </section>
 
   <section class="content">
@@ -259,6 +252,8 @@
       驗證碼已印製於設備貼紙上<br>
       或由負責人提供
     </div>
+
+    <div id="serviceLabel" class="service-label"></div>
 
     <input
       type="text"
@@ -287,6 +282,23 @@
 </div>
 
 <script>
+  const serviceMap = {
+    products: "產品訊息",
+    manual: "操作手冊",
+    cooperation: "技術合作",
+    "customer-service": "客戶服務"
+  };
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const currentDeviceId = urlParams.get("device_id");
+  const currentService = urlParams.get("service");
+
+  const serviceLabel = document.getElementById("serviceLabel");
+
+  if (currentService && serviceMap[currentService]) {
+    serviceLabel.textContent = "目前選擇：" + serviceMap[currentService];
+    serviceLabel.style.display = "block";
+  }
 
   async function checkVerifyCode() {
 
@@ -298,47 +310,41 @@
 
     const message = document.getElementById("message");
 
-    const urlParams = new URLSearchParams(window.location.search);
-
-    const deviceId = urlParams.get("device_id");
-
-    if (!deviceId) {
-
+    if (!currentDeviceId) {
       message.textContent =
         "無法辨識設備編號，請重新掃描設備 QR Code";
-
       message.classList.add("error");
+      return;
+    }
 
+    if (!currentService) {
+      message.textContent =
+        "無法辨識服務項目，請返回重新選擇服務";
+      message.classList.add("error");
       return;
     }
 
     message.textContent = "";
-
     message.className = "message";
 
     if (!verifyCode) {
-
       message.textContent = "請先輸入驗證碼";
-
       message.classList.add("error");
-
       return;
     }
 
     try {
-
       const response = await fetch(
         "https://amo-qrcode-system.onrender.com/verify",
         {
           method: "POST",
-
           headers: {
             "Content-Type": "application/json"
           },
-
           body: JSON.stringify({
-            device_id: deviceId,
-            verify_code: verifyCode
+            device_id: currentDeviceId,
+            verify_code: verifyCode,
+            service: currentService
           })
         }
       );
@@ -346,27 +352,23 @@
       const result = await response.json();
 
       if (result.success) {
-
         window.location.href =
-          "success.html?device_id=" + deviceId;
-
+          "success.html?device_id=" +
+          encodeURIComponent(currentDeviceId) +
+          "&service=" +
+          encodeURIComponent(currentService);
       } else {
-
         message.textContent =
           "請輸入正確驗證碼，或請洽實驗室負責人";
-
         message.classList.add("error");
       }
 
     } catch (error) {
-
       message.textContent =
         "系統連線失敗，請稍後再試";
-
       message.classList.add("error");
     }
   }
-
 </script>
 
 </body>
